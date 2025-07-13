@@ -14,12 +14,23 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Класс-конфигурация брокера Kafka
+ */
 @Configuration
 public class KafkaConfig {
-
+    /**
+     * Переменная окружения.
+     * Используются для получения настроек и параметров из файла конфигурации
+     * application.properties
+     */
     @Autowired
     private Environment environment;
 
+    /**
+     * Конфигурирование и создание потребителей Kafka
+     * @return
+     */
     @Bean
     ConsumerFactory<String, Object> consumerFactory() {
         Map<String, Object> config = new HashMap<>();
@@ -36,6 +47,12 @@ public class KafkaConfig {
         return new DefaultKafkaConsumerFactory<>(config);
     }
 
+    /**
+     * Создается фабрика для листенеров.
+     * Настраивается с ранее созданной ConsumerFactory.
+     * @param consumerFactory
+     * @return
+     */
     @Bean
     ConcurrentKafkaListenerContainerFactory<String, Object> kafkaListenerContainerFactory(
             ConsumerFactory<String, Object> consumerFactory) {

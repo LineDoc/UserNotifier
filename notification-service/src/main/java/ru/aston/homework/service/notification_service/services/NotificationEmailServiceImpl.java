@@ -5,10 +5,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-
+/**
+ * Реализация сервиса для отправки email-уведомлений.
+ * Использует {@link JavaMailSender} для отправки простых текстовых email-сообщений.
+ */
 @Service
 public class NotificationEmailServiceImpl implements NotificationEmailService{
     private final JavaMailSender javaMailSender;
+    /**
+     * Адрес отправителя
+     */
     private final String from;
 
     @Autowired
@@ -18,6 +24,13 @@ public class NotificationEmailServiceImpl implements NotificationEmailService{
         this.from = from;
     }
 
+    /**
+     * Метод отправки сообщения на почту.
+     * @param to - кому предназначено письмо, адрес
+     * @param subject - заголовок
+     * @param message - сообщение
+     *
+     */
     @Override
     public void sendEmail(String to, String subject, String message) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();

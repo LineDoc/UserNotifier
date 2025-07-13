@@ -1,17 +1,21 @@
 package ru.aston.homework.service.notification_service.dto;
 
-public class EmailRequest {
+/**
+ * Объекты класса {@link EmailRequestDTO} несут в себе
+ * необходимую информацию для отправки по Email
+ */
+public class EmailRequestDTO {
     private String email;
     private String subject;
     private String message;
 
-    public EmailRequest(String email, String subject, String message) {
+    public EmailRequestDTO(String email, String subject, String message) {
         this.email = email;
         this.subject = subject;
         this.message = message;
     }
 
-    public EmailRequest() {
+    public EmailRequestDTO() {
     }
 
     public String getEmail() {

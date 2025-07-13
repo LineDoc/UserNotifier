@@ -10,18 +10,28 @@ import ru.aston.core.dto.EventType;
 import ru.aston.core.dto.UserEventDTO;
 import ru.aston.homework.service.notification_service.services.NotificationEmailServiceImpl;
 
+/**
+ * Класс-обработчик входящих событий с брокера Kafka
+ * Прослушивает тему user-events-topic
+ */
 @Component
 @KafkaListener(topics = "users-events-topic")
 public class UserEventHandler {
     private final NotificationEmailServiceImpl service;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     public UserEventHandler(NotificationEmailServiceImpl service) {
         this.service = service;
     }
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
+    /**
+     * Метод обработки сообщений {@link #handler(UserEventDTO)} формирует сообщение для Email
+     * на основе данных входящего сообщения.
+     * Затем вызывается соответствующий метод {@link #service} и формированное сообщение направляется на почту пользователя
+     * Для отображения входящего сообщения от Kafka используется {@link Logger}
+     * @param userEventDTO
+     */
     @KafkaHandler
     public void handler(UserEventDTO userEventDTO) {
         String to = userEventDTO.getEmail();
